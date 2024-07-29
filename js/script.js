@@ -1,13 +1,31 @@
 import { products as allProducts } from "./products.js";
 
+const searchInput = document.getElementById("search-input");
+const categoryFilter = document.getElementById("category-filter");
+
+searchInput.addEventListener("input", updateProducts);
+categoryFilter.addEventListener("change", updateProducts);
+
 const itemsPerPage = 9;
 let currentPage = 1;
-const lastPage = Math.ceil(allProducts.length / itemsPerPage);
 
-function getPaginatedProducts(page) {
-  const start = (page - 1) * itemsPerPage;
+function filterProducts(products) {
+  const searchQuery = searchInput.value.toLowerCase();
+  const selectedCategory = categoryFilter.value;
+  const filteredProducts = products.filter((product) => {
+    const matchesName = product.name.toLowerCase().includes(searchQuery);
+    const matchesCategory = selectedCategory
+      ? product.category === selectedCategory
+      : true;
+    return matchesName && matchesCategory;
+  });
+  return filteredProducts;
+}
+
+function getPaginatedProducts(products) {
+  const start = (currentPage - 1) * itemsPerPage;
   const end = start + itemsPerPage;
-  const paginatedProducts = allProducts.slice(start, end);
+  const paginatedProducts = products.slice(start, end);
   return paginatedProducts;
 }
 
@@ -33,7 +51,7 @@ function renderProducts(products) {
   });
 }
 
-function renderPaginationNav() {
+function renderPaginationNav(lastPage) {
   const paginationNav = document.getElementById("pagination-nav");
   paginationNav.innerHTML = "";
 
@@ -50,7 +68,7 @@ function renderPaginationNav() {
   if (currentPage === lastPage) nextBtn.classList.add("disabled");
 
   previousBtn.addEventListener("click", (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (currentPage !== 1) currentPage -= 1;
     updateProducts();
   });
@@ -62,20 +80,20 @@ function renderPaginationNav() {
   });
 
   paginationNav.appendChild(previousBtn);
-  
-  for(let i = 1; i <= lastPage; i++) {
+
+  for (let i = 1; i <= lastPage; i++) {
     const li = document.createElement("li");
     li.classList.add("page-item");
     if (i === currentPage) li.classList.add("active");
-    const link = document.createElement((i === currentPage) ? "span" : "a");
+    const link = document.createElement(i === currentPage ? "span" : "a");
     link.classList.add("page-link");
     link.innerHTML = i;
     link.href = "#";
     link.addEventListener("click", (e) => {
-        e.preventDefault();
-        currentPage = i;
-        updateProducts();
-    })
+      e.preventDefault();
+      currentPage = i;
+      updateProducts();
+    });
     li.appendChild(link);
     paginationNav.appendChild(li);
   }
@@ -84,9 +102,11 @@ function renderPaginationNav() {
 }
 
 function updateProducts() {
-  const products = getPaginatedProducts(currentPage);
-  renderProducts(products);
-  renderPaginationNav();
+  const filteredProducts = filterProducts(allProducts);
+  const paginatedProducts = getPaginatedProducts(filteredProducts);
+  renderProducts(paginatedProducts);
+  const lastPage = Math.ceil(filteredProducts.length / itemsPerPage);
+  renderPaginationNav(lastPage);
 }
 
 updateProducts();
