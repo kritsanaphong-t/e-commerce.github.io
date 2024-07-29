@@ -1,17 +1,33 @@
 import { products as allProducts } from "./products.js";
+import { addProductToCart } from "./cart.js";
 
 const searchInput = document.getElementById("search-input");
 const categoryFilter = document.getElementById("category-filter");
 
-searchInput.addEventListener("input", updateProducts);
-categoryFilter.addEventListener("change", updateProducts);
+if(searchInput)
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    updateProducts();
+});
+
+if(categoryFilter)
+categoryFilter.addEventListener("change", () => {
+    currentPage = 1;
+    updateProducts();
+});
 
 const itemsPerPage = 9;
 let currentPage = 1;
 
+document.addEventListener("DOMContentLoaded", function () {
+    if(document.getElementById("product-list"))
+    updateProducts();
+});
+
 function filterProducts(products) {
   const searchQuery = searchInput.value.toLowerCase();
   const selectedCategory = categoryFilter.value;
+  console.log(selectedCategory)
   const filteredProducts = products.filter((product) => {
     const matchesName = product.name.toLowerCase().includes(searchQuery);
     const matchesCategory = selectedCategory
@@ -30,31 +46,41 @@ function getPaginatedProducts(products) {
 }
 
 function renderProducts(products) {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
-
-  products.forEach((product) => {
-    const productCard = `
-                <div class="col-md-4">
-                    <div class="card product-card">
-                        <img src="${product.image}" class="card-img-top" alt="${product.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text">${product.description}</p>
-                            <p class="card-text"><strong>${product.price}</strong></p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-    productList.innerHTML += productCard;
-  });
-}
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = "";
+  
+    products.forEach((product) => {
+      const productCard = document.createElement("div");
+      productCard.className = "col-md-4";
+      productCard.innerHTML = `
+        <div class="card product-card">
+          <img src="${product.image}" class="card-img-top" alt="${product.name}">
+          <div class="card-body">
+            <h5 class="card-title">${product.name}</h5>
+            <p class="card-text">${product.description}</p>
+            <p class="card-text"><strong>${product.price}</strong></p>
+            <a href="#" class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+          </div>
+        </div>
+      `;
+      productList.appendChild(productCard);
+  
+      const addToCartBtn = productCard.querySelector(".add-to-cart-btn");
+      addToCartBtn.addEventListener("click", function(event) {
+        event.preventDefault();
+        addProductToCart(product);
+      });
+    });
+  }
 
 function renderPaginationNav(lastPage) {
   const paginationNav = document.getElementById("pagination-nav");
   paginationNav.innerHTML = "";
-
+  if (lastPage === 0)
+  {
+    paginationNav.innerHTML = "There are no products of this type in the system.";
+    return;
+  }
   const previousBtn = document.createElement("li");
   const nextBtn = document.createElement("li");
 
@@ -108,5 +134,3 @@ function updateProducts() {
   const lastPage = Math.ceil(filteredProducts.length / itemsPerPage);
   renderPaginationNav(lastPage);
 }
-
-updateProducts();
