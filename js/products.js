@@ -9,7 +9,6 @@ export const products = [
     { name: "Wireless Mouse", price: "$19.99", image: "https://via.placeholder.com/150", description: "Ergonomic mouse with customizable buttons." },
     { name: "Mechanical Keyboard", price: "$69.99", image: "https://via.placeholder.com/150", description: "Tactile switches for a satisfying typing experience." },
     { name: "Noise-Cancelling Headphones", price: "$99.99", image: "https://via.placeholder.com/150", description: "Over-ear headphones with active noise cancellation." },
-    // Add 90 more realistic products
     { name: "Smart Home Hub", price: "$79.99", image: "https://via.placeholder.com/150", description: "Control your smart home devices from one place." },
     { name: "4K Monitor", price: "$299.99", image: "https://via.placeholder.com/150", description: "Ultra HD monitor with stunning color accuracy." },
     { name: "Gaming Chair", price: "$199.99", image: "https://via.placeholder.com/150", description: "Comfortable chair designed for long gaming sessions." },
