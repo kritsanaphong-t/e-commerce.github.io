@@ -7,6 +7,8 @@ const popover = new bootstrap.Popover(popoverTrigger, {
   },
 });
 
+const toastLiveAddProduct = document.getElementById("liveToast");
+
 let cart = [];
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -28,7 +30,7 @@ function loadCart() {
 
 function updatePopover() {
   const popover = document.getElementById("popover-content");
-  popover.innerHTML = ""
+  popover.innerHTML = "";
   const popoverControls = document.createElement("div");
   popoverControls.className = "d-flex flex-column gap-2 mt-3";
   cart.forEach((product) => {
@@ -44,10 +46,10 @@ function updatePopover() {
     const col3 = document.createElement("div");
     col3.className = "d-flex justify-content-between";
     const row1 = document.createElement("div");
-    row1.className = "row"
+    row1.className = "row";
     row1.innerHTML = product.name;
     const row2 = document.createElement("div");
-    row2.className = "row"
+    row2.className = "row";
     col3.innerHTML = `x ${product.quantity} <strong>$${product.price}</strong>`;
     row2.append(col3);
     col2.append(row1);
@@ -64,10 +66,12 @@ function updatePopover() {
   viewCartBtn.className = "btn btn-primary btn-sm";
   checkoutBtn.className = "btn btn-secondary btn-sm";
   const totalPriceElement = document.createElement("div");
-  totalPriceElement.className = "d-flex justify-content-end"
-  console.log(cart)
-  let totalPrice = cart ? cart.reduce((accumulator, current) => accumulator + current.price, 0) : null;
-  totalPriceElement.innerHTML = `<div>Total Pirce: <strong>$${totalPrice}</strong></div>`
+  totalPriceElement.className = "d-flex justify-content-end";
+  console.log(cart);
+  let totalPrice = cart
+    ? cart.reduce((accumulator, current) => accumulator + current.price, 0)
+    : null;
+  totalPriceElement.innerHTML = `<div>Total Pirce: <strong>$${totalPrice}</strong></div>`;
   popoverControls.append(viewCartBtn);
   popover.appendChild(totalPriceElement);
   popover.appendChild(popoverControls);
@@ -81,6 +85,8 @@ export const addProductToCart = (product) => {
   } else {
     inCartProduct.quantity += 1;
   }
+  const toast = new bootstrap.Toast(toastLiveAddProduct);
+  toast.show();
   saveCart();
   updatePopover();
 };
