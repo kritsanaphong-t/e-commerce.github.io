@@ -41,12 +41,15 @@ function updatePopover() {
     col1.className = "col-4";
     const col2 = document.createElement("div");
     col2.className = "col-8";
+    const col3 = document.createElement("div");
+    col3.className = "d-flex justify-content-between";
     const row1 = document.createElement("div");
     row1.className = "row"
     row1.innerHTML = product.name;
     const row2 = document.createElement("div");
     row2.className = "row"
-    row2.innerHTML = `x ${product.quantity}`;
+    col3.innerHTML = `x ${product.quantity} <strong>$${product.price}</strong>`;
+    row2.append(col3);
     col2.append(row1);
     col2.append(row2);
     col1.append(productImage);
@@ -60,8 +63,13 @@ function updatePopover() {
   checkoutBtn.innerHTML = "Checkout";
   viewCartBtn.className = "btn btn-primary btn-sm";
   checkoutBtn.className = "btn btn-secondary btn-sm";
+  const totalPriceElement = document.createElement("div");
+  totalPriceElement.className = "d-flex justify-content-end"
+  console.log(cart)
+  let totalPrice = cart ? cart.reduce((accumulator, current) => accumulator + current.price, 0) : null;
+  totalPriceElement.innerHTML = `<div>Total Pirce: <strong>$${totalPrice}</strong></div>`
   popoverControls.append(viewCartBtn);
-  popoverControls.append(checkoutBtn);
+  popover.appendChild(totalPriceElement);
   popover.appendChild(popoverControls);
 }
 
