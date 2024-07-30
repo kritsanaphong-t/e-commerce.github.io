@@ -1,10 +1,18 @@
 import { products as allProducts, topSellingProducts } from "./products.js";
-import { addProductToCart } from "./cart.js";
+import { addProductToCart, getCart } from "./cart.js";
 
+// Home
+const topSellingCarousel = document.getElementById("top-selling");
+
+// Products
 const searchInput = document.getElementById("search-input");
 const categoryFilter = document.getElementById("category-filter");
 
-const topSellingCarousel = document.getElementById("top-selling");
+// Checkout
+const paymentMethodSelect = document.getElementById("paymentMethod");
+const creditCardDetails = document.getElementById("creditCardDetails");
+const paypalDetails = document.getElementById("paypalDetails");
+const orderList = document.getElementById("order-list");
 
 if (searchInput)
   searchInput.addEventListener("input", () => {
@@ -26,6 +34,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (topSellingCarousel) {
     createCarousel();
+  }
+
+  if (orderList) {
+    const cart = getCart();
+    let totalPrice = 0;
+    cart.forEach((product) => {
+      orderList.innerHTML += `
+      <div class="row mb-3">
+        <div class="col-8">${product.name} x ${product.quantity} </div>
+        <div class="col-4 text-end">$${product.price}</div>
+      </div>
+      `;
+      totalPrice += (product.price * product.quantity);
+    });
+    orderList.innerHTML += `<hr>`;
+    orderList.innerHTML += `
+    <div class="row">
+                  <div class="col-8"><strong>Total</strong></div>
+                  <div class="col-4 text-end"><strong>$${totalPrice}</strong></div>
+                </div>
+    `;
+  }
+
+  if (paymentMethodSelect) {
+    paymentMethodSelect.addEventListener("change", function () {
+      if (this.value === "creditCard") {
+        creditCardDetails.style.display = "block";
+        paypalDetails.style.display = "none";
+      } else if (this.value === "paypal") {
+        creditCardDetails.style.display = "none";
+        paypalDetails.style.display = "block";
+      }
+    });
   }
 });
 

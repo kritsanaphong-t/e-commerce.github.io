@@ -83,59 +83,71 @@ function updatePopover() {
 
 // Function to display cart items
 function displayCartItems() {
-  const cartItemsContainer = document.getElementById('cart-items');
-  cartItemsContainer.innerHTML = '';
+  const cartItemsContainer = document.getElementById("cart-items");
+  cartItemsContainer.innerHTML = "";
 
   let total = 0;
 
-  cart.forEach(item => {
-      const itemTotal = item.price * item.quantity;
-      total += itemTotal;
+  cart.forEach((item) => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
 
-      const itemRow = document.createElement('div');
-      itemRow.className = 'col-12 mb-3';
-      itemRow.innerHTML = `
+    const itemRow = document.createElement("div");
+    itemRow.className = "col-12 mb-3";
+    itemRow.innerHTML = `
           <div class="card">
               <div class="row g-0">
                   <div class="col-5 col-md-2">
-                      <img src="${item.image}" class="img-fluid rounded-start w-100" alt="${item.name}">
+                      <img src="${
+                        item.image
+                      }" class="img-fluid rounded-start w-100" alt="${
+      item.name
+    }">
                   </div>
                   <div class="col-7 col-md-10">
                       <div class="card-body">
                           <h5 class="card-title">${item.name}</h5>
-                          <p class="card-text">$${item.price.toFixed(2)} x ${item.quantity} = $${itemTotal.toFixed(2)}</p>
+                          <p class="card-text">$${item.price.toFixed(2)} x ${
+      item.quantity
+    } = $${itemTotal.toFixed(2)}</p>
                           <div class="d-flex justify-content-between">
                               <div class="btn-group" role="group">
-                                  <button type="button" class="btn btn-outline-secondary" data-action="decrease" data-id="${item.id}">-</button>
-                                  <button type="button" class="btn btn-outline-secondary" data-action="increase" data-id="${item.id}">+</button>
+                                  <button type="button" class="btn btn-outline-secondary" data-action="decrease" data-id="${
+                                    item.id
+                                  }">-</button>
+                                  <button type="button" class="btn btn-outline-secondary" data-action="increase" data-id="${
+                                    item.id
+                                  }">+</button>
                               </div>
-                              <button class="btn btn-danger" data-action="remove" data-id="${item.id}">Remove</button>
+                              <button class="btn btn-danger" data-action="remove" data-id="${
+                                item.id
+                              }">Remove</button>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
       `;
-      cartItemsContainer.appendChild(itemRow);
+    cartItemsContainer.appendChild(itemRow);
   });
 
-  document.getElementById('cart-total').textContent = total.toFixed(2);
+  document.getElementById("cart-total").textContent = total.toFixed(2);
 
   // Add event listeners for buttons
-  document.querySelectorAll('[data-action="decrease"]').forEach(button => {
-      button.addEventListener('click', function() {
-          updateQuantity(parseInt(this.dataset.id), -1);
-      });
+  document.querySelectorAll('[data-action="decrease"]').forEach((button) => {
+    button.addEventListener("click", function () {
+      updateQuantity(parseInt(this.dataset.id), -1);
+    });
   });
-  document.querySelectorAll('[data-action="increase"]').forEach(button => {
-      button.addEventListener('click', function() {
-          updateQuantity(parseInt(this.dataset.id), 1);
-      });
+  document.querySelectorAll('[data-action="increase"]').forEach((button) => {
+    button.addEventListener("click", function () {
+      updateQuantity(parseInt(this.dataset.id), 1);
+    });
   });
-  document.querySelectorAll('[data-action="remove"]').forEach(button => {
-      button.addEventListener('click', function() {
-          removeItem(parseInt(this.dataset.id));
-      });
+  document.querySelectorAll('[data-action="remove"]').forEach((button) => {
+    button.addEventListener("click", function () {
+      removeItem(parseInt(this.dataset.id));
+    });
   });
 }
 
@@ -160,11 +172,9 @@ function removeItem(itemId) {
   updatePopover();
 }
 
-// Function to proceed to checkout
-function checkout() {
-  alert("Proceeding to checkout");
-  // Implement checkout logic here
-}
+export const getCart = () => {
+  return cart;
+};
 
 export const addProductToCart = (product) => {
   const inCartProduct = cart.find((i) => i.id === product.id);
