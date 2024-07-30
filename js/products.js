@@ -79,3 +79,9 @@ export const products = [
     { id: 78, name: "Robot Lawn Mower", price: 999.99, image: "https://via.placeholder.com/150", description: "Automated lawn mowing for a perfect yard.", category: "Garden" },
     { id: 79, name: "Smart Water Bottle", price: 39.99, image: "https://via.placeholder.com/150", description: "Track your hydration with this smart bottle.", category: "Fitness" }
 ];
+
+export const topSellingProducts = [
+    { id: 1, name: "Wireless Earbuds", price: 29.99, image: "https://via.placeholder.com/150", description: "High-quality sound with noise cancellation.", category: "Electronics" },
+    { id: 2, name: "Smartphone Stand", price: 15.99, image: "https://via.placeholder.com/150", description: "Adjustable stand for smartphones and tablets.", category: "Accessories" },
+    { id: 3, name: "Bluetooth Speaker", price: 49.99, image: "https://via.placeholder.com/150", description: "Portable speaker with deep bass and long battery life.", category: "Electronics" }
+];
