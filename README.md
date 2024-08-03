@@ -125,7 +125,7 @@ Project Link: [https://github.com/kritsanaphong-t/e-commerce.github.io](https://
 [license-url]: https://github.com/kritsanaphong-t/e-commerce.github.io/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: img/screenshot.png
+[product-screenshot]: img/Screenshot.jpeg
 [HTML.com]: https://img.shields.io/badge/HTML-000000?style=for-the-badge&logo=html5&logoColor=white
 [HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
 [CSS.com]: https://img.shields.io/badge/CSS-000000?style=for-the-badge&logo=css3&logoColor=white
