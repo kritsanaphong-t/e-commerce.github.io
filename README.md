@@ -42,7 +42,7 @@
     <a href="https://kritsanaphong-t.github.io/e-commerce.github.io"><strong>Website »</strong></a>
     <br />
     <br />
-    <a href="https://youtube.com">Introduce Video</a>
+    <a href="https://youtu.be/RMx9bZv0RT0?si=c4j_SOCYKGYZMdHL">Introduce Video</a>
   </p>
 </div>
 
