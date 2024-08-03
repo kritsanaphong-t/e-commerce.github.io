@@ -34,7 +34,7 @@
     <img src="img/logo.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">kritsanaphong_t@hotmail.com</h3>
+<h3 align="center">Ecommerce</h3>
 
   <p align="center">
     This is a project for ROAD TO FRONT-END DEVELOPER Bootcamp #4 course.
