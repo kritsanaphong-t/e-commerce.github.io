@@ -91,7 +91,7 @@
 - Provide a form to fill out shipping information
 - Offer payment options, supporting credit card payments and PayPal
 
-## Built With
+### Built With
 
 * [![HTML][HTML.com]][HTML-url]
 * [![CSS][CSS.com]][CSS-url]
