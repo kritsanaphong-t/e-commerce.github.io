@@ -119,7 +119,8 @@ function renderProducts(products) {
   });
 }
 
-function renderPaginationNav(lastPage) {
+function renderPaginationNav(filteredProducts) {
+  const lastPage = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginationNav = document.getElementById("pagination-nav");
   paginationNav.innerHTML = "";
   if (lastPage === 0) {
@@ -177,8 +178,7 @@ function updateProducts() {
   const filteredProducts = filterProducts(allProducts);
   const paginatedProducts = getPaginatedProducts(filteredProducts);
   renderProducts(paginatedProducts);
-  const lastPage = Math.ceil(filteredProducts.length / itemsPerPage);
-  renderPaginationNav(lastPage);
+  renderPaginationNav(filterProducts);
 }
 
 function createCarousel() {
